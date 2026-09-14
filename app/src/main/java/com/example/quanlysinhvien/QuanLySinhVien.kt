@@ -35,6 +35,11 @@ fun main() {
             4 -> calculateAverageGPA()
             5 -> findStudentWithHighestGPA()
             6 -> removeStudent()
+            7 -> countStudentsGpaGreaterOrEqual(8.0)
+            8 -> countStudentsGpaLessThan(5.0)
+            9 -> averageGpaByMajor()
+            10 -> findOldestStudent()
+            11 -> findStudentsInGpaRange(7.0, 8.5)
             0 -> println("Exiting program. Goodbye!")
             else -> println("Invalid choice, please try again.")
         }
@@ -59,7 +64,13 @@ fun printMenu() {
     println("4. Calculate average GPA (all)")
     println("5. Find student with highest GPA")
     println("6. Remove student")
-    println("0. Exit")
+    println("--------- Extra requirements ---------")
+    println("7.  Count students with GPA >= 8.0")
+    println("8.  Count students with GPA < 5.0")
+    println("9.  Average GPA of students in a major")
+    println("10. Find the oldest student")
+    println("11. Find students with GPA in [7.0, 8.5]")
+    println("0.  Exit")
     println("=======================================")
 }
 
@@ -129,6 +140,54 @@ fun removeStudent() {
     val id = sc.nextLine().trim()
     val removed = students.removeIf { it.studentId.equals(id, ignoreCase = true) }
     println(if (removed) "Student removed successfully!" else "Student ID not found.")
+}
+
+// 7. Count students with GPA >= threshold
+fun countStudentsGpaGreaterOrEqual(threshold: Double) {
+    val count = students.count { it.gpa >= threshold }
+    println("Number of students with GPA >= $threshold: $count")
+}
+
+// 8. Count students with GPA < threshold
+fun countStudentsGpaLessThan(threshold: Double) {
+    val count = students.count { it.gpa < threshold }
+    println("Number of students with GPA < $threshold: $count")
+}
+
+// 9. Average GPA of a given major
+fun averageGpaByMajor() {
+    print("Enter Major to calculate average GPA: ")
+    val major = sc.nextLine().trim()
+
+    val filtered = students.filter { it.major.equals(major, ignoreCase = true) }
+    if (filtered.isEmpty()) {
+        println("No students found in this major.")
+    } else {
+        val avg = filtered.sumByDouble { it.gpa } / filtered.size
+        println("Average GPA of major \"$major\": %.2f (%d students)".format(avg, filtered.size))
+    }
+}
+
+// 10. Find the oldest student
+fun findOldestStudent() {
+    if (students.isEmpty()) {
+        println("No students found.")
+        return
+    }
+    val oldest = students.maxBy { it.age }
+    println("Oldest student:")
+    println(oldest)
+}
+
+// 11. Find students with GPA in a range
+fun findStudentsInGpaRange(min: Double, max: Double) {
+    println("Students with GPA between $min and $max:")
+    val result = students.filter { it.gpa in min..max }
+    if (result.isEmpty()) {
+        println("No students found in this GPA range.")
+    } else {
+        result.forEach { println(it) }
+    }
 }
 
 fun readIntInput(prompt: String): Int {
