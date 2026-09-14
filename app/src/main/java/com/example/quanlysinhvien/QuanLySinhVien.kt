@@ -1,5 +1,7 @@
 package com.example.quanlysinhvien
 
+import java.util.Locale
+import java.util.Locale.getDefault
 import java.util.Scanner
 
 data class Student(
@@ -42,6 +44,10 @@ fun main() {
             11 -> findStudentsInGpaRange(7.0, 8.5)
             12 -> findAllStudentsByMajor()
             13 -> searchStudentByPartialName()
+            14 -> sortStudentsByGpaDescending()
+            15 -> displayTop3HighestGPA()
+            16 -> sortStudentsByAge()
+            17 -> sortStudentsByName()
             0 -> println("Exiting program. Goodbye!")
             else -> println("Invalid choice, please try again.")
         }
@@ -74,6 +80,10 @@ fun printMenu() {
     println("11. Find students with GPA in [7.0, 8.5]")
     println("12. List all students of a major")
     println("13. Search students by part of name")
+    println("14. Sort students by GPA (descending)")
+    println("15. Display top 3 students with highest GPA")
+    println("16. Sort students by age")
+    println("17. Sort students by name")
     println("0.  Exit")
     println("=======================================")
 }
@@ -210,13 +220,47 @@ fun findAllStudentsByMajor() {
 // 13. Search students by part of the name
 fun searchStudentByPartialName() {
     print("Enter part of the name to search: ")
-    val keyword = sc.nextLine().trim().toLowerCase()
-    val result = students.filter { it.fullName.toLowerCase().contains(keyword) }
+    val keyword = sc.nextLine().trim().lowercase(getDefault())
+    val result = students.filter { it.fullName.lowercase(getDefault()).contains(keyword) }
     if (result.isEmpty()) {
         println("No student found matching: $keyword")
     } else {
         result.forEach { println(it) }
     }
+}
+// 14. Sort students by GPA descending
+fun sortStudentsByGpaDescending() {
+    students.sortByDescending { it.gpa }
+    println("Students sorted by GPA (descending):")
+    displayAllStudents()
+}
+
+// 15. Display top 3 students with highest GPA
+fun displayTop3HighestGPA() {
+    if (students.isEmpty()) {
+        println("No students found.")
+        return
+    }
+    val sorted = students.sortedByDescending { it.gpa }
+    val limit = minOf(3, sorted.size)
+    println("Top $limit students with highest GPA:")
+    for (i in 0 until limit) {
+        println(sorted[i])
+    }
+}
+
+// 16. Sort students by age
+fun sortStudentsByAge() {
+    students.sortBy { it.age }
+    println("Students sorted by age (ascending):")
+    displayAllStudents()
+}
+
+// 17. Sort students by name
+fun sortStudentsByName() {
+    students.sortBy { it.fullName.lowercase(getDefault()) }
+    println("Students sorted by name:")
+    displayAllStudents()
 }
 fun readIntInput(prompt: String): Int {
     print(prompt)
