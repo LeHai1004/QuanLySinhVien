@@ -40,6 +40,8 @@ fun main() {
             9 -> averageGpaByMajor()
             10 -> findOldestStudent()
             11 -> findStudentsInGpaRange(7.0, 8.5)
+            12 -> findAllStudentsByMajor()
+            13 -> searchStudentByPartialName()
             0 -> println("Exiting program. Goodbye!")
             else -> println("Invalid choice, please try again.")
         }
@@ -70,6 +72,8 @@ fun printMenu() {
     println("9.  Average GPA of students in a major")
     println("10. Find the oldest student")
     println("11. Find students with GPA in [7.0, 8.5]")
+    println("12. List all students of a major")
+    println("13. Search students by part of name")
     println("0.  Exit")
     println("=======================================")
 }
@@ -190,6 +194,30 @@ fun findStudentsInGpaRange(min: Double, max: Double) {
     }
 }
 
+// 12. List all students of a given major
+fun findAllStudentsByMajor() {
+    print("Enter Major: ")
+    val major = sc.nextLine().trim()
+    val result = students.filter { it.major.equals(major, ignoreCase = true) }
+    println("Students in major \"$major\":")
+    if (result.isEmpty()) {
+        println("No students found in this major.")
+    } else {
+        result.forEach { println(it) }
+    }
+}
+
+// 13. Search students by part of the name
+fun searchStudentByPartialName() {
+    print("Enter part of the name to search: ")
+    val keyword = sc.nextLine().trim().toLowerCase()
+    val result = students.filter { it.fullName.toLowerCase().contains(keyword) }
+    if (result.isEmpty()) {
+        println("No student found matching: $keyword")
+    } else {
+        result.forEach { println(it) }
+    }
+}
 fun readIntInput(prompt: String): Int {
     print(prompt)
     while (!sc.hasNextInt()) {
