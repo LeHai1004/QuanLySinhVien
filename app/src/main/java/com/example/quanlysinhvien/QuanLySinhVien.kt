@@ -57,13 +57,12 @@ fun main() {
 
 // 5 sinh viên mẫu - khác nhau hoàn toàn
 fun initSampleData() {
-    students.add(Student("SV001", "Nguyen Van A", 20, "Software Engineering", 8.5))
-    students.add(Student("SV002", "Tran Thi B", 21, "Information Technology", 7.2))
-    students.add(Student("SV003", "Le Van C", 22, "Computer Science", 9.1))
-    students.add(Student("SV004", "Pham Thi D", 19, "Software Engineering", 4.8))
-    students.add(Student("SV005", "Hoang Van E", 23, "Information Technology", 6.5))
+    students.add(Student("SV2024A", "Le Hoang Hai", 21, "Software Engineering", 8.7))
+    students.add(Student("SV2024B", "Dang Thi Kim Ngan", 20, "Information Security", 6.9))
+    students.add(Student("SV2024C", "Vo Minh Quan", 22, "Computer Science", 9.3))
+    students.add(Student("SV2024D", "Bui Ngoc Tuyet Anh", 19, "Digital Marketing", 4.5))
+    students.add(Student("SV2024E", "Trinh Cong Duy", 23, "Network Engineering", 7.6))
 }
-
 fun printMenu() {
     println("========= STUDENT MANAGEMENT =========")
     println("1. Add student")
